@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Binary Search</h1>
+    <h2 id="Numbers"></h2>
+    <button onclick="generateNumbers()">Generate Numbers</button>
+    <input type="number" id="numberToFind" />
+    <button onclick="find()">Find</button>
+    <p id="result"></p>
+
+    <script>
+      /*
+      let binarySearch = function (numbers, val, start, end) {
+        if (start > end) return false;
+        let mid = Math.floor((start + end) / 2);
+        if (numbers[mid] === val) return true;
+        if (numbers[mid] > x) return binarySearch(numbers, val, start, mid - 1);
+        else return binarySearch(numbers, val, mid + 1, end);
+      };
+      */
+      let binarySearch = function (numbers, val) {
+        let start = 0,
+          end = numbers.length - 1;
+
+        while (start <= end) {
+          let mid = Math.floor((start + end) / 2);
+
+          if (numbers[mid] === val) return true;
+          else if (numbers[mid] < val) start = mid + 1;
+          else end = mid - 1;
+        }
+
+        return false;
+      };
+
+      let numbers = [];
+
+      function generateNumbers() {
+        // Generate 10000 numbers and sort.
+        for (let i = 0; i < 10000; i++) {
+          numbers.push(Math.floor(Math.random() * 1000000 + 1));
+        }
+        numbers.sort(function (a, b) {
+          return a - b;
+        });
+        console.log("Numbers : ", numbers);
+      }
+
+      function find() {
+        let val = document.getElementById("numberToFind").value;
+
+        console.log("Numbers : ", numbers);
+
+        // Find val with Binary Search.
+        console.log("Val type : ", typeof Number(val));
+        if (binarySearch(numbers, Number(val))) {
+          document.getElementById("result").innerHTML = "Element exists.";
+        } else {
+          document.getElementById("result").innerHTML =
+            "Element doesn't exist.";
+        }
+      }
+    </script>
+  </body>
+</html>
